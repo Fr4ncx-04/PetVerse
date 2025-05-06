@@ -547,11 +547,20 @@ const PetProfile: React.FC = () => {
   }, [id]); // Depend on `id` so it refetches if the URL parameter changes
 
 
-  const handleImageUpdated = () => {
-      // Re-fetch data to update the image after upload
-      fetchPetData(id as string);
-      setShowImageUploadModal(false);
-  };
+  const handleImageUpdated = (newImageUrl?: string) => {
+  if (newImageUrl) {
+    // opcional: actualizar localmente la URL de la imagen
+    setPetInfo(prev => 
+      prev
+      ? { ...prev, image: newImageUrl }
+      : prev
+    );
+  } else {
+    // si no vino URL, refetch completo
+    fetchPetData(id as string);
+  }
+  setShowImageUploadModal(false);
+};
 
 
    // Map API appointments to modal format
@@ -1067,12 +1076,16 @@ const PetProfile: React.FC = () => {
       />
       {petInfo && (
           <ImageUploadModal
-              isOpen={showImageUploadModal}
-              onClose={() => setShowImageUploadModal(false)}
-              petId={petInfo.id}
-              currentImage={petInfo.image}
-              onImageUpdated={handleImageUpdated}
-          />
+          isOpen={showImageUploadModal}
+          onClose={() => setShowImageUploadModal(false)}
+          currentImage={petInfo.image}
+          updateEndpoint="http://localhost:3000/api/pets/updateImage"
+          petId={petInfo.id}
+          onUpdateSuccess={(newImageUrl?: string) => {
+            handleImageUpdated(newImageUrl);
+          }}
+          />
+
       )}
     </div>
   );

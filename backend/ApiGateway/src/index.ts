@@ -327,7 +327,7 @@ app.get('/api/pets/details/:IdPet', async (req,res) => {
 });
 
 //Registro de Mascotas
-app.post("/api/pets/register", upload.single('Imagen'), async (req, res) => {
+app.post("/api/pets/register", upload.single('image'), async (req, res) => {
   try {
       const form = new FormData();
 
@@ -338,7 +338,7 @@ app.post("/api/pets/register", upload.single('Imagen'), async (req, res) => {
 
       // Añadir el archivo si existe
       if (req.file) {
-        form.append('imagen', req.file.buffer, {
+        form.append('image', req.file.buffer, {
           filename: req.file.originalname,
           contentType: req.file.mimetype,
         });

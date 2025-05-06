@@ -111,24 +111,27 @@ export const getPetsByUser = async (req: any, res: any) => {
 
 //registro de mascotas
 export const insertPet = async (req: any, res: any) => {
-  const connection = await pool.getConnection(); // Obtener conexión para transacción
+  const connection = await pool.getConnection();
   try {
       await connection.beginTransaction(); // Iniciar transacción
 
       // 1. Insertar mascota en tabla 'pets' (sin el campo Weight)
       const { PetName, IdSpecies, Breed, Age, IdUser, IdPetStatus, Weight } = req.body;
-      const Image = req.file?.filename || null;
+      const Image = `${req.file.filename}`;
 
       // Validaciones
-      if (!PetName || !IdSpecies || !Breed || !Age || !IdUser || !IdPetStatus || !Weight) {
+      if (!PetName || !IdSpecies || !Breed || !Age || !IdUser || !IdPetStatus || !Weight || !Image) {
           return res.status(400).json({ message: 'Faltan datos requeridos' });
       }
 
-      // Insertar en 'pets'
+      
+
+      // Insertar
       const [petResult] = await connection.execute(
-          `INSERT INTO pets (PetName, Breed, Age, IdUser, IdPetStatus, CreatedAt, Image, IdSpecies)
-           VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)`,
-          [PetName, Breed, Age, IdUser, IdPetStatus, Image, IdSpecies]
+          `INSERT INTO pets 
+          (PetName, Breed, Age, IdUser, IdPetStatus, IdSpecies, Image, CreatedAt)
+          VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
+          [PetName, Breed, Age, IdUser, IdPetStatus, IdSpecies, Image]
       );
 
       // 2. Obtener ID de la mascota insertada
@@ -141,15 +144,15 @@ export const insertPet = async (req: any, res: any) => {
           [IdPet, Weight, "Peso inicial de la mascota"]
       );
 
-      await connection.commit(); // Confirmar transacción
+      await connection.commit(); 
       res.status(201).json({ message: 'Mascota y peso inicial registrados' });
 
   } catch (error) {
-      await connection.rollback(); // Revertir en caso de error
+      await connection.rollback();
       console.error('Error:', error);
       res.status(500).json({ message: 'Error al registrar' });
   } finally {
-      connection.release(); // Liberar conexión
+      connection.release(); 
   }
 };
 
@@ -162,7 +165,7 @@ export const updatePetImage = async (req: any, res: any) => {
       return res.status(400).json({ message: 'No se proporcionó ningún archivo de imagen.' });
     }
 
-    const imageUrl = `${req.file.filename}`; // Ruta accesible (ajústala si sirves archivos con Express.static)
+    const imageUrl = `${req.file.filename}`;
     console.log('Received file:', req.file);
 
     // Consulta SQL para actualizar la imagen

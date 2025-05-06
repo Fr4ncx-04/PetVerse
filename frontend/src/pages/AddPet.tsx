@@ -58,8 +58,8 @@ export default function AddPet() {
         : "Want to register another pet?",
     adoptPrompt:
       language === "es"
-        ? "¿Deseas agregar una mascota para adopción?"
-        : "Want to add a pet for adoption?",
+        ? "¿Deseas ir a la pagina de adopciones?"
+        : "Want go to adoption page?",
     confirm: language === "es" ? "Confirmar" : "Confirm",
     cancel: language === "es" ? "Cancelar" : "Cancel",
   };
@@ -115,7 +115,7 @@ useEffect(() => {
   const closeModal = () => setModalOpen(false);
   const onConfirm = () => {
     closeModal();
-    tab === "my-pets" ? navigate("/RegisterPet") : navigate("/adoptions");
+    tab === "my-pets" ? navigate("/RegisterPet") : navigate("/adoptionpage");
   };
 
   return (
@@ -126,7 +126,9 @@ useEffect(() => {
     >
       <header className="text-center mb-10 mt-10">
         <h2 className="text-3xl font-bold mb-2">
-          {language === "es" ? "Perfiles de Mascotas" : "Pet Profiles"}
+          {language === 'en'
+          ? `${user?.UserName}'s Pets`
+          : `Mascotas de ${user?.UserName}`}
         </h2>
         <p className={`text-gray-500 max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : ''}`}> 
           {language === "es"

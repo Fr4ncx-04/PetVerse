@@ -68,18 +68,29 @@ const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Skeleton loader cards
   const skeletons = Array.from({ length: 6 }, (_, i) => (
-    <div
-      key={i}
-      className={`mt-10 animate-pulse border rounded-lg p-6 ${
-        theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
-      }`}
-    >
-      <div className="h-48 w-full bg-gray-300 mb-4 rounded" />
-      <div className="h-6 w-3/4 bg-gray-300 mb-2 rounded" />
-      <div className="h-6 w-1/2 bg-gray-300 mb-4 rounded" />
-      <div className="flex justify-between items-center mt-4">
-        <div className="h-8 w-20 bg-gray-300 rounded" />
-        <div className="h-8 w-28 bg-gray-300 rounded" />
+    <div key={i} className="mt-10 max-w-screen-xl mx-auto px-4 py-12">
+      {/* Header con skeleton de título + botón compartir */}
+      <div className="flex items-center justify-between mb-8">
+        <div className="h-8 w-1/3 bg-gray-300 rounded animate-pulse" />
+        <button
+          disabled
+          className="flex items-center gap-2 px-4 py-2 bg-gray-300 text-transparent rounded animate-pulse"
+        >
+          📤 Compartir
+        </button>
+      </div>
+  
+      {/* Tarjeta skeleton */}
+      <div className={`animate-pulse border rounded-lg p-6 ${
+          theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+        }`}>
+        <div className="h-48 w-full bg-gray-300 mb-4 rounded" />
+        <div className="h-6 w-3/4 bg-gray-300 mb-2 rounded" />
+        <div className="h-6 w-1/2 bg-gray-300 mb-4 rounded" />
+        <div className="flex justify-between items-center mt-4">
+          <div className="h-8 w-20 bg-gray-300 rounded" />
+          <div className="h-8 w-28 bg-gray-300 rounded" />
+        </div>
       </div>
     </div>
   ));
@@ -138,14 +149,45 @@ const [showLoginModal, setShowLoginModal] = useState(false);
     );
   }
 
+  const shareWishlist = async () => {
+    const shareData = {
+      title: language === 'en' ? 'My Wishlist' : 'Mi Lista de Deseos',
+      text:  language === 'en' ? 'Check out my wishlist!' : '¡Mira mi lista de deseos!',
+      url:   window.location.href,
+    };
+  
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      // Fallback: copiar enlace
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        alert(language === 'en' ? 'Link copied to clipboard' : 'Enlace copiado al portapapeles');
+      } catch {
+        alert(language === 'en' ? 'Could not copy link' : 'No se pudo copiar el enlace');
+      }
+    }
+  };
+
   // Render wishlist items
   return (
     <div className="mt-10 max-w-screen-xl mx-auto px-4 py-12">
+      
       <h1 className="text-4xl font-bold mb-8 text-center">
         {language === 'en'
           ? `${user?.UserName}'s Wishlist`
           : `Lista de ${user?.UserName}`}
       </h1>
+      <button
+    onClick={shareWishlist}
+    className="mb-10 flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+  >
+    📤 {language === 'en' ? 'Share my wishlist' : 'Compartir mi lista de deseos'}
+  </button>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {wishlist.map(item => (
           <div
