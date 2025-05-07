@@ -3,7 +3,6 @@ import { useThemeLanguage } from '../contexts/ThemeLanguageContext';
 export default function TiendaUNACH() {
   const { theme, language } = useThemeLanguage();
 
-  // Traducciones
   const content = {
     title: language === 'en' ? 'Visit our location at UNACH!' : '¡Visita nuestra sede en la UNACH!',
     subtitle: language === 'en'
@@ -31,7 +30,6 @@ export default function TiendaUNACH() {
         </p>
       </div>
 
-      {/* Imagen a la derecha con leyenda y botón */}
       <div className="relative md:w-1/2 h-full">
         <img
           src="../../public/img/mascotas/Edificio.png"

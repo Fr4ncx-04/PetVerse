@@ -82,7 +82,6 @@ export const ReviewProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       }
 
       const data = await response.json();
-      // Mapear los campos
       const formattedReviews: Review[] = data.map((review: any) => ({
         id: review.IdReview,
         userId: review.IdUser,

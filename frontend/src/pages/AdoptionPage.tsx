@@ -23,17 +23,15 @@ const AdoptionPage = () => {
       } catch (error) {
         console.error('Error al obtener mascotas:', error);
     } finally {
-        // Simular un pequeño retraso para que el skeleton sea visible
         setTimeout(() => {
-          setLoading(false); // Terminar carga
-        }, 1000); // Puedes ajustar o quitar este retraso
+          setLoading(false); 
+        }, 1000);
       }
     };
 
     fetchPets();
   }, []);
 
-  // Obtener especies y razas únicas
   const speciesOptions = Array.from(new Set(pets.map(p => p.SpeciesName)));
   const breedOptions = Array.from(new Set(
     pets.filter(p => selectedSpecies === 'all' || p.SpeciesName === selectedSpecies).map(p => p.Breed)
@@ -105,7 +103,7 @@ const AdoptionPage = () => {
             value={selectedSpecies}
             onChange={(e) => {
               setSelectedSpecies(e.target.value);
-              setSelectedBreed('all'); // reset raza
+              setSelectedBreed('all'); 
             }}
             className={`px-2 py-1 rounded border ${
               theme === 'dark'

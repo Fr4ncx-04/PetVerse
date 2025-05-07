@@ -268,7 +268,6 @@ const Cart: React.FC = () => {
               </table>
             </div>
 
-            {/* — Botón Vaciar Carrito — */}
         {cartItems.length > 0 && (
           <div className="flex justify-end mb-4">
             <button

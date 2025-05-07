@@ -29,10 +29,8 @@ export default function PetShowcase() {
 
   useEffect(() => {
     const fetchMyPets = async () => {
-      // Solo fetchear si el usuario está logeado
       if (user?.IdUser) {
         try {
-          // Tipar la respuesta de axios.get con UserPet[]
           const response = await axios.get<Pet[]>(`http://localhost:3000/api/pets/getPetsByUser/${user.IdUser}`);
           setMyPets(response.data);
 
@@ -60,10 +58,8 @@ export default function PetShowcase() {
 
   const handleAddPet = () => {
     if (user) {
-      // Navegar a la página de registro de mascota
       navigate("/RegisterPet");
     } else {
-      // Manejo si el usuario no está logeado (alerta simple, considera redireccionar)
       alert("Para añadir una mascota, inicia sesión.");
     }
   };
@@ -72,7 +68,6 @@ export default function PetShowcase() {
     navigate("/adoptionpage");
   }
 
-  // --- Renderizado ---
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
       <div className="text-center mb-8">
@@ -151,12 +146,10 @@ export default function PetShowcase() {
         {/* --- Adopción --- */}
         <Tabs.Content value="adoption">
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-    {/* Mostrar solo las primeras 2 mascotas en adopción */}
     {adoptionPets.slice(0, 2).map((pet) => (
       <PetCard key={pet.IdPet} pet={pet} type="adoption" />
     ))}
 
-    {/* Mostrar AddCard si hay mascotas en adopción */}
     {adoptionPets.length > 0 && (
       <AddCard
         onClick={ViewAdoptions}

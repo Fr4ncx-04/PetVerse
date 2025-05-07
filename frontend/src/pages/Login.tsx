@@ -17,15 +17,13 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validar campos antes de enviar
+
     if (!UserName || !Password) {
       alert(language === 'en' ? 'Please fill in all fields.' : 'Por favor, completa todos los campos.');
       return;
     }
     
     try {
-      // Llamada a la API de inicio de sesión
       const response = await fetch('http://localhost:3000/api/users/loginUsers', {
         method: 'POST',
         headers: {
@@ -43,14 +41,12 @@ const Login: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
-      
-        // Actualizar el contexto con la información del usuario
+
         login({
           IdUser: data.IdUser,
           UserName: data.UserName,
         });
         setShowSuccessModal(true);
-        // después de 1.5s cerramos y navegamos
         setTimeout(() => {
           setShowSuccessModal(false);
           navigate('/');
@@ -116,7 +112,6 @@ const Login: React.FC = () => {
             </Link>
           </div>
         </form>
-        {/* Modal de éxito */}
       <Transition appear show={showSuccessModal} as={Fragment}>
         <Dialog 
           as="div" 
@@ -153,7 +148,7 @@ function FloatingInput({ id, type, value, label, onChange }: {
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const { theme } = useThemeLanguage(); // Obtenemos el tema actual
+  const { theme } = useThemeLanguage();
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => setIsFocused(true);
@@ -161,7 +156,6 @@ function FloatingInput({ id, type, value, label, onChange }: {
 
   const isActive = isFocused || value.length > 0;
 
-  // Clases condicionales según el tema
   const inputTextClass = theme === 'dark' ? 'text-white' : 'text-gray-900';
   const inputBorderClass = theme === 'dark' ? 'border-gray-600' : 'border-gray-300';
   const inputFocusBorder = theme === 'dark' ? 'focus:border-green-500' : 'focus:border-green-600';

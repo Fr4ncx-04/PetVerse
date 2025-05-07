@@ -26,7 +26,6 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Overlay backdrop */}
       <div
         className="fixed inset-0 bg-black bg-opacity-50"
         onClick={onClose}
@@ -39,7 +38,6 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-green-800">
             Historial de Peso
@@ -52,8 +50,6 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
             <X className="h-5 w-5" />
           </button>
         </div>
-
-        {/* Body */}
         <div className="p-4 overflow-y-auto space-y-2 flex-1">
           {sortedHistory.length > 0 ? (
             <>
@@ -104,8 +100,6 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
             </p>
           )}
         </div>
-
-        {/* Footer */}
         <div className="flex justify-end p-4 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onClose}

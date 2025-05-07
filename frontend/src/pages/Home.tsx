@@ -45,10 +45,8 @@ const Home: React.FC = () => {
         <TiendaUNACH/>
       </div>
 
-      {/* Call to Action */}
       <div className={`relative overflow-hidden border-t-2 border-b-2 border-green-500 ${theme === 'dark' ? 'bg-gray-600' : 'bg-gray-100'} py-16 mb-10`}>
         
-        {/* Imagen de fondo para todo el contenedor */}
         <div className="absolute inset-0 z-0 ">
           <img
             src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -59,7 +57,6 @@ const Home: React.FC = () => {
 
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between relative z-10 h-full">
           
-          {/* Texto a la izquierda */}
           <div className="text-center md:text-left md:max-w-xl z-20">
             <h2 className="text-3xl font-bold mb-4">
               {language === 'en' 
@@ -73,7 +70,6 @@ const Home: React.FC = () => {
             </p>
           </div>
 
-          {/* Botón centrado del lado derecho */}
           <div className="mt-10 md:mt-0 md:flex md:items-center md:justify-center md:h-full z-20">
             <button
               onClick={() => navigate('/register')}

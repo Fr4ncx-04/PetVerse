@@ -6,7 +6,6 @@ export default function PetPromoBanner() {
   return (
     <div className="relative bg-[#000] rounded-2xl overflow-hidden px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between min-h-[400px] mr-20 ml-20">
       
-      {/* Imagen de fondo decorativa con espacio a los lados */}
       <div className="absolute inset-0 z-0 opacity-60 flex justify-center">
         <div className="w-full">
           <img
@@ -16,8 +15,6 @@ export default function PetPromoBanner() {
           />
         </div>
       </div>
-
-      {/* Contenido frontal */}
       <div className="relative z-10 text-center md:text-left max-w-xl">
         <h2 className="text-3xl md:text-4xl font-bold text-white">
           Las mejores promociones en productos para tu mascota

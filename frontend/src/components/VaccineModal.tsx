@@ -10,11 +10,8 @@ export interface Vaccine {
 }
 
 export interface VaccineModalProps {
-  /** Controls modal visibility */
   isOpen: boolean;
-  /** Callback to close modal */
   onClose: () => void;
-  /** List of vaccine records */
   vaccines: Vaccine[];
 }
 
@@ -38,21 +35,17 @@ const VaccineModal: React.FC<VaccineModalProps> = ({
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop overlay */}
       <div
         className="fixed inset-0 bg-black bg-opacity-50"
         onClick={onClose}
         aria-hidden="true"
       />
-
-      {/* Modal container */}
       <div
         className="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg max-h-[80vh] w-full max-w-md mx-4 overflow-hidden flex flex-col"
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-green-800">
             Historial de Vacunas
@@ -65,8 +58,6 @@ const VaccineModal: React.FC<VaccineModalProps> = ({
             <X className="h-5 w-5" />
           </button>
         </div>
-
-        {/* Body */}
         <div className="p-4 overflow-y-auto space-y-4 flex-1">
           {vaccines.map((vaccine, index) => (
             <div
@@ -106,8 +97,6 @@ const VaccineModal: React.FC<VaccineModalProps> = ({
             </p>
           )}
         </div>
-
-        {/* Footer */}
         <div className="flex justify-end p-4 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onClose}
